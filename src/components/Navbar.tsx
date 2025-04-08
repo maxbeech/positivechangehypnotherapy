@@ -36,44 +36,49 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMobileMenuOpen]);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
   // Navigation structure with dropdown menus
   const navigation = [
     { name: 'Home', href: '/' },
     {
-      name: 'About Us',
+      name: 'About',
       href: '/about',
       children: [
-        { name: 'Our Story', href: '/about' },
-        { name: 'Our Team', href: '/about/team' },
-        { name: 'Facilities', href: '/about/facilities' },
-        { name: 'Values & Mission', href: '/about/values' },
-        { name: 'Ofsted', href: '/about/ofsted' },
+        { name: 'About Keira', href: '/about' },
+        { name: 'Solution Focused Hypnotherapy', href: '/about/solution-focused-hypnotherapy' },
+        { name: 'Qualifications', href: '/about/qualifications' },
       ],
     },
     {
-      name: 'Programs & Services', 
+      name: 'Services', 
+      href: '/services',
+      children: [
+        { name: 'Anxiety & Depression', href: '/services/anxiety-depression' },
+        { name: 'Stress Management', href: '/services/stress-management' },
+        { name: 'Confidence & Self-Esteem', href: '/services/confidence-self-esteem' },
+        { name: 'Phobias & Fears', href: '/services/phobias-fears' },
+        { name: 'Habits & Addictions', href: '/services/habits-addictions' },
+        { name: 'Sleep Issues', href: '/services/sleep-issues' },
+        { name: 'All Services', href: '/services' },
+      ],
+    },
+    {
+      name: 'Programs',
       href: '/programs',
       children: [
-        { name: 'Holiday Club', href: '/programs/holiday-club' },
-        { name: 'After School Club', href: '/programs/after-school' },
-        { name: 'Breakfast Club', href: '/programs/breakfast' },
-        { name: 'Preschool', href: '/programs/preschool' },
-        { name: 'Wraparound Care', href: '/programs/wraparound' },
+        { name: '1-to-1 Positive Change Program', href: '/programs/one-to-one' },
+        { name: 'Group Sessions', href: '/programs/group-sessions' },
+        { name: 'Online Sessions', href: '/programs/online' },
+        { name: 'Corporate Wellness', href: '/programs/corporate' },
       ],
     },
-    {
-      name: 'Parents',
-      href: '/parents',
-      children: [
-        { name: 'Admissions', href: '/parents/admissions' },
-        { name: 'Fees', href: '/parents/fees' },
-        { name: 'FAQs', href: '/parents/faqs' },
-        { name: 'Policies', href: '/parents/policies' },
-        { name: 'Term Dates', href: '/parents/term-dates' },
-      ],
-    },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'News', href: '/news' },
+    { name: 'Testimonials', href: '/testimonials' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'FAQ', href: '/faq' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -81,12 +86,12 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md'
-          : 'bg-transparent'
+          ? 'bg-white/95 backdrop-blur-md shadow-md py-2'
+          : 'bg-transparent py-4'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
-        <div className="flex justify-between items-center h-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
           {/* Logo */}
           <motion.div 
             className="flex-shrink-0 flex items-center"
@@ -94,43 +99,43 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/media/logo-icon_only.png"
-                alt="Bisley Base Logo"
-                width={50}
-                height={50}
+                alt="Positive Change Hypnotherapy Logo"
+                width={48}
+                height={48}
                 className="w-12 h-12"
               />
-              <div className="flex flex-col">
-                <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${
-                  isScrolled ? 'text-emerald-700' : 'text-white'
+              <div className="ml-3 flex flex-col">
+                <span className={`text-lg font-semibold tracking-tight transition-colors duration-300 ${
+                  isScrolled ? 'text-indigo-700' : 'text-white'
                 }`}>
-                  Bisley Base
+                  Positive Change
                 </span>
                 <span className={`text-xs font-medium transition-colors duration-300 ${
-                  isScrolled ? 'text-emerald-600' : 'text-emerald-100'
+                  isScrolled ? 'text-indigo-500' : 'text-indigo-100'
                 }`}>
-                  Childcare & Preschool
+                  Solution Focused Hypnotherapy
                 </span>
               </div>
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex lg:items-center lg:space-x-2">
+          <div className="hidden lg:flex lg:items-center lg:space-x-1">
             {navigation.map((item) => (
               !item.children ? (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`px-3 py-3 text-sm font-medium rounded-md transition-all duration-300 hover:scale-105 ${
+                  className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-300 hover:scale-105 ${
                     pathname === item.href
                       ? isScrolled
-                        ? 'text-emerald-700 bg-emerald-50'
+                        ? 'text-indigo-700 bg-indigo-50'
                         : 'text-white bg-white/10 backdrop-blur-sm'
                       : isScrolled
-                        ? 'text-gray-700 hover:text-emerald-700'
+                        ? 'text-gray-700 hover:text-indigo-700'
                         : 'text-white hover:bg-white/10'
                   }`}
                 >
@@ -141,13 +146,13 @@ const Navbar = () => {
                   {({ open }) => (
                     <>
                       <Popover.Button
-                        className={`group inline-flex items-center px-3 py-3 text-sm font-medium rounded-md outline-none transition-all duration-300 hover:scale-105 ${
+                        className={`group inline-flex items-center px-3 py-2 text-sm font-medium rounded-md outline-none transition-all duration-300 hover:scale-105 ${
                           pathname?.startsWith(item.href)
                             ? isScrolled
-                              ? 'text-emerald-700 bg-emerald-50'
+                              ? 'text-indigo-700 bg-indigo-50'
                               : 'text-white bg-white/10 backdrop-blur-sm'
                             : isScrolled
-                              ? 'text-gray-700 hover:text-emerald-700'
+                              ? 'text-gray-700 hover:text-indigo-700'
                               : 'text-white hover:bg-white/10'
                         }`}
                       >
@@ -156,7 +161,7 @@ const Navbar = () => {
                           className={`ml-1 h-4 w-4 transform transition-transform duration-200 ${
                             open ? 'rotate-180' : ''
                           } ${
-                            isScrolled ? 'text-emerald-700' : 'text-white'
+                            isScrolled ? 'text-indigo-700' : 'text-white'
                           }`}
                           aria-hidden="true"
                         />
@@ -178,7 +183,7 @@ const Navbar = () => {
                                 <Link
                                   key={subItem.name}
                                   href={subItem.href}
-                                  className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+                                  className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
                                 >
                                   {subItem.name}
                                 </Link>
@@ -193,10 +198,12 @@ const Navbar = () => {
               )
             ))}
             <Link
-              href="/contact"
-              className="ml-2 inline-flex items-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 transition-all duration-300 hover:scale-105"
+              href="https://positivechangehypnotherapy.co.uk/booking"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
             >
-              Book a Tour
+              Book Now
             </Link>
           </div>
 
@@ -206,8 +213,8 @@ const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`p-2 rounded-md transition-colors duration-300 ${
                 isScrolled
-                  ? 'text-gray-900 hover:text-emerald-600'
-                  : 'text-white hover:text-emerald-200'
+                  ? 'text-gray-900 hover:text-indigo-600'
+                  : 'text-white hover:text-indigo-200'
               }`}
               aria-expanded={isMobileMenuOpen}
             >
@@ -245,43 +252,51 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu panel */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
+          <motion.div 
+            className="lg:hidden mobile-menu-container"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden mobile-menu-container bg-white shadow-lg"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 divide-y divide-gray-100">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg rounded-b-lg">
               {navigation.map((item) => (
-                <div key={item.name} className="py-2">
+                <Fragment key={item.name}>
                   {!item.children ? (
                     <Link
                       href={item.href}
                       className={`block px-3 py-2 rounded-md text-base font-medium ${
                         pathname === item.href
-                          ? 'text-emerald-700 bg-emerald-50'
-                          : 'text-gray-900 hover:text-emerald-700 hover:bg-gray-50'
+                          ? 'bg-indigo-50 text-indigo-700'
+                          : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-700'
                       }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   ) : (
                     <div className="space-y-1">
-                      <p className="px-3 py-2 text-base font-medium text-gray-900">
+                      <div
+                        className={`block px-3 py-2 rounded-md text-base font-medium ${
+                          pathname?.startsWith(item.href)
+                            ? 'bg-indigo-50 text-indigo-700'
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`}
+                      >
                         {item.name}
-                      </p>
-                      <div className="pl-4 space-y-1 border-l-2 border-gray-100">
+                      </div>
+                      <div className="pl-4 space-y-1 border-l-2 border-indigo-100 ml-3">
                         {item.children.map((subItem) => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-emerald-700 hover:bg-gray-50"
-                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`block px-3 py-2 rounded-md text-sm font-medium ${
+                              pathname === subItem.href
+                                ? 'bg-indigo-50 text-indigo-700'
+                                : 'text-gray-600 hover:bg-indigo-50 hover:text-indigo-700'
+                            }`}
                           >
                             {subItem.name}
                           </Link>
@@ -289,15 +304,16 @@ const Navbar = () => {
                       </div>
                     </div>
                   )}
-                </div>
+                </Fragment>
               ))}
-              <div className="pt-4">
+              <div className="pt-4 pb-3">
                 <Link
-                  href="/contact"
-                  className="w-full block text-center px-4 py-2 rounded-md text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  href="https://positivechangehypnotherapy.co.uk/booking"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex justify-center items-center px-4 py-2 border border-transparent text-base font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 shadow-md"
                 >
-                  Book a Tour
+                  Book Now
                 </Link>
               </div>
             </div>

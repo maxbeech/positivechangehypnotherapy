@@ -13,6 +13,13 @@ import {
   SparklesIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/outline';
+import { Inter } from 'next/font/google';
+import HeroSlider from '@/components/HeroSlider';
+import { FaArrowRight, FaCheck, FaQuoteLeft, FaBrain } from 'react-icons/fa';
+import { RiMentalHealthFill } from 'react-icons/ri';
+import { MdTipsAndUpdates } from 'react-icons/md';
+
+const inter = Inter({ subsets: ['latin'] });
 
 // Animation components
 interface FadeInProps {
@@ -147,6 +154,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description, lin
   );
 };
 
+// Fade in animation for scroll sections
+const fadeInUp = {
+  initial: { opacity: 0, y: 60 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+};
+
 export default function Home() {
   // Testimonials data
   const testimonials = [
@@ -195,302 +208,558 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <Hero />
-      
-      {/* About Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <FadeIn>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  Welcome to Bisley Base
-                </h2>
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  Established in 2001, Bisley Base offers exceptional childcare and early education in the heart of Surrey. We provide a nurturing, stimulating environment where children can thrive, learn, and develop their unique potential.
-                </p>
-              </FadeIn>
-              <FadeIn delay={0.2}>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  Our qualified team is dedicated to providing high-quality care and education for children aged 2-11 years, with a range of services including preschool, breakfast club, after-school club, and holiday club programs.
-                </p>
-              </FadeIn>
-              <FadeIn delay={0.3}>
-                <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                  <Link 
-                    href="/about" 
-                    className="px-6 py-3 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors duration-300 text-center"
-                  >
-                    About Us
-                  </Link>
-                  <Link 
-                    href="/parents/admissions" 
-                    className="px-6 py-3 border border-emerald-600 text-emerald-600 font-medium rounded-md hover:bg-emerald-50 transition-colors duration-300 text-center"
-                  >
-                    Enroll Now
-                  </Link>
-                </div>
-              </FadeIn>
-            </div>
-            <div className="relative">
-              <FadeIn delay={0.4} direction="left">
-                <div className="relative h-[500px] w-full rounded-xl overflow-hidden shadow-lg">
-                  <Image 
-                    src="/media/484869461_1066673028838587_705034766726118684_n.jpg" 
-                    alt="Children playing at Bisley Base"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.6} direction="up">
-                <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
-                  <div className="flex items-center space-x-3 text-emerald-600">
-                    <SparklesIcon className="h-6 w-6" />
-                    <span className="font-semibold">Ofsted Outstanding</span>
-                  </div>
-                </div>
-              </FadeIn>
-              <FadeIn delay={0.7} direction="up">
-                <div className="absolute -top-6 -right-6 bg-white p-4 rounded-lg shadow-lg">
-                  <div className="flex items-center space-x-3 text-emerald-600">
-                    <HeartIcon className="h-6 w-6" />
-                    <span className="font-semibold">20+ Years Experience</span>
-                  </div>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Our Services Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Our Programs & Services
-              </h2>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <p className="max-w-3xl mx-auto text-gray-600">
-                We offer a range of flexible childcare options to support families and nurture children's development
-              </p>
-            </FadeIn>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ServiceCard 
-              icon={<AcademicCapIcon className="h-8 w-8" />}
-              title="Preschool"
-              description="Our preschool program offers a stimulating environment for children aged 2-4 years, focusing on play-based learning and development."
-              link="/programs/preschool"
-              delay={0.2}
-            />
-            
-            <ServiceCard 
-              icon={<CalendarDaysIcon className="h-8 w-8" />}
-              title="After School Club"
-              description="Providing fun, supervised care for school-aged children with activities, healthy snacks, and homework support."
-              link="/programs/after-school"
-              delay={0.3}
-            />
-            
-            <ServiceCard 
-              icon={<UserGroupIcon className="h-8 w-8" />}
-              title="Breakfast Club"
-              description="Start the day right with our breakfast club, offering nutritious meals and engaging activities before school begins."
-              link="/programs/breakfast"
-              delay={0.4}
-            />
-            
-            <ServiceCard 
-              icon={<HeartIcon className="h-8 w-8" />}
-              title="Holiday Club"
-              description="Action-packed holiday programs full of fun activities, trips, and themed events during school breaks."
-              link="/programs/holiday-club"
-              delay={0.5}
-            />
-            
-            <ServiceCard 
-              icon={<SparklesIcon className="h-8 w-8" />}
-              title="Wraparound Care"
-              description="Flexible childcare solutions that wrap around school hours, designed to support working parents."
-              link="/programs/wraparound"
-              delay={0.6}
-            />
-            
-            <ServiceCard 
-              icon={<CalendarDaysIcon className="h-8 w-8" />}
-              title="Special Events"
-              description="Themed days, guest workshops, and seasonal celebrations that enrich our regular childcare programs."
-              link="/programs/special-events"
-              delay={0.7}
-            />
-          </div>
-        </div>
-      </section>
-      
-      {/* Testimonials Section */}
-      <section className="py-20 bg-emerald-600 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <svg width="100%" height="100%">
-            <pattern id="pattern-circles" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternContentUnits="userSpaceOnUse">
-              <circle id="pattern-circle" cx="20" cy="20" r="3" fill="#fff"></circle>
-            </pattern>
-            <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"></rect>
-          </svg>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                What Parents Say
-              </h2>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <p className="max-w-3xl mx-auto text-emerald-50">
-                Hear from the families who trust us with their children's care and education
-              </p>
-            </FadeIn>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <FadeIn key={index} delay={0.2 + index * 0.1} direction="up">
-                <div className="bg-white rounded-xl shadow-lg p-8 h-full flex flex-col">
-                  <div className="mb-4 text-emerald-500">
-                    <svg
-                      className="h-8 w-8"
-                      fill="currentColor"
-                      viewBox="0 0 32 32"
-                      aria-hidden="true"
-                    >
-                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-600 mb-6 flex-grow italic">"{testimonial.quote}"</p>
-                  <div className="mt-auto">
-                    <p className="font-semibold text-gray-900">{testimonial.author}</p>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* Latest News Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-            <div>
-              <FadeIn>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  Latest News & Updates
-                </h2>
-              </FadeIn>
-              <FadeIn delay={0.1}>
-                <p className="text-gray-600">
-                  Stay updated with the latest happenings at Bisley Base
-                </p>
-              </FadeIn>
-            </div>
-            <FadeIn delay={0.2}>
-              <Link 
-                href="/news" 
-                className="mt-4 md:mt-0 inline-flex items-center font-medium text-emerald-600 hover:text-emerald-700"
+      <section className="relative">
+        <HeroSlider />
+        <div className="absolute inset-0 flex items-center z-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-3xl">
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight"
               >
-                View all news
-                <ArrowRightIcon className="ml-2 h-4 w-4" />
-              </Link>
-            </FadeIn>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {latestNews.map((item, index) => (
-              <FadeIn key={item.title} delay={0.3 + index * 0.1} direction="up">
-                <motion.div 
-                  className="bg-white rounded-xl shadow-sm hover:shadow-md overflow-hidden h-full flex flex-col transition-all duration-300"
-                  whileHover={{ y: -5 }}
+                Trying To Change Your Life But Don't Know Where To Start?
+              </motion.h1>
+              <motion.p 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="mt-4 text-xl md:text-2xl text-white font-medium max-w-2xl"
+              >
+                Make Progress In Your First 1-Hour Session Of Clinically-Proven Behavioural Change Therapy
+              </motion.p>
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="mt-8 flex flex-col sm:flex-row gap-4"
+              >
+                <Link 
+                  href="https://positivechangehypnotherapy.co.uk/booking" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-xl text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105"
                 >
-                  <div className="relative h-48">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <p className="text-sm text-emerald-600 mb-2">{item.date}</p>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 mb-4 flex-grow">
-                      {item.excerpt}
-                    </p>
-                    <Link
-                      href={item.link}
-                      className="inline-flex items-center font-medium text-emerald-600 hover:text-emerald-700 mt-auto"
-                    >
-                      Read more
-                      <ArrowRightIcon className="ml-2 h-4 w-4" />
-                    </Link>
-                  </div>
-                </motion.div>
-              </FadeIn>
+                  Book Now
+                  <FaArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link 
+                  href="/about" 
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-base font-medium rounded-full shadow-xl text-white hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
+                >
+                  Learn More
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Scroll indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        >
+          <div className="flex flex-col items-center">
+            <span className="text-white text-sm mb-2">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center p-1">
+              <motion.div
+                animate={{ 
+                  y: [0, 12, 0],
+                }}
+                transition={{ 
+                  repeat: Infinity,
+                  duration: 1.5,
+                }}
+                className="w-2 h-2 bg-white rounded-full"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* What if section */}
+      <section className="py-20 bg-gradient-to-br from-indigo-50 to-indigo-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              What if in the next 6 weeks you could...
+            </h2>
+            <div className="h-1 w-20 bg-indigo-600 mx-auto"></div>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Gain Clarity & Confidence",
+                description: "Go from feeling stuck and unsure of the next step to take... to feeling clear, confident and excited as you take action",
+                icon: <MdTipsAndUpdates className="h-10 w-10 text-indigo-600" />
+              },
+              {
+                title: "Break Harmful Habits",
+                description: "Stop struggling with bad habits that are damaging your health, finances, and relationships",
+                icon: <RiMentalHealthFill className="h-10 w-10 text-indigo-600" />
+              },
+              {
+                title: "Reconnect With Yourself",
+                description: "Reconnect with the amazing parts of yourself that you currently feel are lost and rediscover your authentic self",
+                icon: <FaBrain className="h-10 w-10 text-indigo-600" />
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-xl shadow-xl p-8 transform hover:-translate-y-2 transition-all duration-300"
+              >
+                <div className="mb-6">{item.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
+                <p className="text-gray-600">{item.description}</p>
+              </motion.div>
             ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link 
+              href="/programs/one-to-one" 
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-xl text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Don't Stay Stuck
+              <FaArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
-      
-      {/* CTA Section */}
-      <section className="py-20 relative">
-        <ParallaxImage
-          src="/media/484917025_1068052962033927_2729368767143192861_n.jpg"
-          alt="Children playing at Bisley Base"
-          className="absolute inset-0"
-          imgClassName="brightness-[0.25]"
-        />
-        
-        {/* Additional dark overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
+
+      {/* Problem section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInUp}
+              className="order-2 md:order-1"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                Here's the problem...
+              </h2>
+              <p className="text-lg text-gray-700 mb-6">
+                You know that to achieve the life you want, you need to change things 
+                in your life that are currently holding you back. But...
+              </p>
+              <ul className="space-y-4">
+                {[
+                  "You're full of uncertainty of the next exact step you need to take",
+                  "You get overwhelmed and paralysed by fear",
+                  "You've tried to change before, and were so discouraged by your lack of progress that you're nervous to try again",
+                  "You may have tried reading self-help books, other talk therapies, testing out new habits like meditation, journaling and mindfulness practice."
+                ].map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="flex-shrink-0 h-6 w-6 bg-indigo-600 rounded-full flex items-center justify-center mt-1">
+                      <FaCheck className="h-3 w-3 text-white" />
+                    </span>
+                    <span className="ml-3 text-gray-600">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+            
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInUp}
+              className="order-1 md:order-2"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/media/Stress-related photos/pexels-rdne-5542968.jpg"
+                  alt="Woman feeling stressed"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-6">
+                  <h3 className="text-xl font-semibold text-white">Feeling Stuck?</h3>
+                  <p className="text-indigo-200">You're not alone in this struggle</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Solution section */}
+      <section className="py-20 bg-indigo-900 text-white relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <Image 
+            src="/media/pattern.svg" 
+            alt="Background pattern" 
+            fill 
+            className="object-cover"
+          />
+        </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Ready to Join Our Bisley Base Family?
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInUp}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                Solution Focused Hypnotherapy Put Me Back In Control Of My Life
               </h2>
-            </FadeIn>
-            <FadeIn delay={0.1}>
-              <p className="text-xl text-white/90 mb-8">
-                Take the first step in providing exceptional care and education for your child
+              <p className="text-lg text-indigo-200 mb-6">
+                That's why I created Positive Change Hypnotherapy. This was the only thing that helped me 
+                turn my life into the wonderful and positive experience it is now. And I want to help other 
+                people to do the same.
               </p>
-            </FadeIn>
-            <FadeIn delay={0.2}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link 
-                  href="/contact" 
-                  className="px-8 py-4 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors duration-300 text-center"
-                >
-                  Book a Tour
-                </Link>
-                <Link 
-                  href="/parents/admissions" 
-                  className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-medium rounded-md hover:bg-white/20 transition-colors duration-300 text-center"
-                >
-                  Enrollment Information
-                </Link>
+              <div className="bg-indigo-800/50 p-6 rounded-xl">
+                <h3 className="text-xl font-semibold mb-4">Here's Why It Works…</h3>
+                <p className="text-indigo-200">
+                  Solution Focused Hypnotherapy is a clinically-proven change therapy that uses 
+                  the science of behaviour change to get measurable and permanent results fast for 
+                  people who need help.
+                </p>
+                <p className="text-indigo-200 mt-4">
+                  Instead of dwelling on past trauma, we use a simple, structured, research-based 
+                  process to create profound positive change.
+                </p>
               </div>
-            </FadeIn>
+            </motion.div>
+            
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInUp}
+              className="flex justify-center"
+            >
+              <div className="relative max-w-md">
+                <div className="absolute -left-4 -top-4 h-24 w-24 rounded-full bg-indigo-400 opacity-20"></div>
+                <div className="absolute -right-8 -bottom-8 h-40 w-40 rounded-full bg-indigo-500 opacity-20"></div>
+                <div className="relative z-10 bg-white rounded-xl overflow-hidden shadow-2xl">
+                  <Image
+                    src="/media/founder_profile_picture.webp"
+                    alt="Keira Smith - Qualified Hypnotherapist"
+                    width={500}
+                    height={600}
+                    className="w-full h-auto"
+                  />
+                  <div className="p-6 bg-gradient-to-br from-indigo-600 to-indigo-800">
+                    <h3 className="text-xl font-bold text-white">Keira Smith</h3>
+                    <p className="text-indigo-200">Qualified Hypnotherapist, Clifton Practice</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* How it works section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              You may be wondering, "Does this actually work?"
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Many other therapies rely on outdated science. Solution Focused Hypnotherapy is 100% science-based 
+              and uses the latest in behavioural neuroscience.
+            </p>
+            <div className="h-1 w-20 bg-indigo-600 mx-auto mt-6"></div>
+          </motion.div>
+
+          <div className="bg-indigo-50 rounded-2xl p-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8">
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeInUp}
+              >
+                <h3 className="text-xl font-bold text-gray-900 mb-4">If you're willing to commit to:</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <span className="flex-shrink-0 h-6 w-6 bg-indigo-600 rounded-full flex items-center justify-center mt-1">
+                      <FaCheck className="h-3 w-3 text-white" />
+                    </span>
+                    <span className="ml-3 text-gray-700">
+                      30 minutes of work a day (25 minutes lying down listening to the trance recording, 
+                      5 minutes of a simple written exercise)
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="flex-shrink-0 h-6 w-6 bg-indigo-600 rounded-full flex items-center justify-center mt-1">
+                      <FaCheck className="h-3 w-3 text-white" />
+                    </span>
+                    <span className="ml-3 text-gray-700">
+                      A 1 hour session a week
+                    </span>
+                  </li>
+                </ul>
+              </motion.div>
+              
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeInUp}
+                className="flex flex-col justify-center"
+              >
+                <h3 className="text-2xl font-bold text-indigo-700 mb-4">…Then you'll see results.</h3>
+                <p className="text-gray-700">
+                  If you're not willing to do those two commitments, then you won't see results from 
+                  this (or any other solution).
+                </p>
+                <p className="text-gray-900 font-medium mt-4">Sound good? Great! Then…</p>
+              </motion.div>
+            </div>
+          </div>
+
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Change How You Use Your Brain To Get What You Really Want In Life.
+            </h2>
+            <p className="text-lg text-gray-600 italic max-w-3xl mx-auto">
+              The goal of our work together is to:
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInUp}
+              className="bg-white rounded-xl shadow-xl p-8 border-t-4 border-indigo-600"
+            >
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Define exactly what life will look like when you've made the changes that you most need to make
+              </h3>
+              <p className="text-gray-600">
+                Together, we'll create a clear vision of your desired future, with concrete goals 
+                and outcomes that matter to you.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInUp}
+              className="bg-white rounded-xl shadow-xl p-8 border-t-4 border-indigo-600"
+            >
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Help you to make those changes… without hours of complicated self-care, talk therapy, 
+                or feeling lost and unsupported
+              </h3>
+              <p className="text-gray-600">
+                Using proven neuroscience-based techniques, you'll develop new neural pathways that support 
+                lasting positive change.
+              </p>
+            </motion.div>
+          </div>
+
+          <div className="text-center">
+            <Link 
+              href="https://positivechangehypnotherapy.co.uk/booking" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-full shadow-xl text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Book Your First Session Today
+              <FaArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-gradient-to-br from-indigo-900 to-purple-900 text-white relative">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <Image 
+            src="/media/pattern.svg" 
+            alt="Background pattern" 
+            fill 
+            className="object-cover"
+          />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              What Others Say About Their Experience
+            </h2>
+            <div className="h-1 w-20 bg-indigo-400 mx-auto"></div>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "Keira's sessions are wonderful, uplifting and so helpful… I finally feel like I've found something that has made a real noticeable difference to helping manage my OCD symptoms, and that is invaluable. I can't recommend the sessions enough, Keira is amazing!",
+                author: "Samantha"
+              },
+              {
+                quote: "Hypnotherapy with Keira helped me gain the confidence I needed to advance in the workplace. It helped me focus, relax, and sleep more peacefully. I felt very safe in Keira's expert hands.",
+                author: "Gav"
+              },
+              {
+                quote: "Having never had any sort of therapy before I was very hesitant to try, but felt I'd come to a point where workplace stress was becoming uncontrollable and I'd tried many other self help ideas. From my very first treatment I felt a difference and after 6 I feel so much better and have been able to cope and even thrive in my workplace. Thank you so much!",
+                author: "Chloe"
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-8 relative"
+              >
+                <FaQuoteLeft className="absolute top-4 left-4 h-8 w-8 text-indigo-400 opacity-40" />
+                <div className="pt-6">
+                  <p className="text-white leading-relaxed mb-6">
+                    {testimonial.quote}
+                  </p>
+                  <div className="h-px w-12 bg-indigo-400 mb-4"></div>
+                  <p className="font-medium text-indigo-200">{testimonial.author}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link 
+              href="/testimonials" 
+              className="inline-flex items-center justify-center px-6 py-3 border border-white text-base font-medium rounded-full text-white hover:bg-white/10 transition-all duration-300 transform hover:scale-105"
+            >
+              Read More Testimonials
+              <FaArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Program section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              The 1-to-1 Positive Change Program
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Make meaningful progress towards your most desired goal in 6-12 weeks.
+            </p>
+            <div className="h-1 w-20 bg-indigo-600 mx-auto mt-6"></div>
+          </motion.div>
+
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeInUp}
+            className="bg-gray-50 rounded-2xl shadow-xl overflow-hidden"
+          >
+            <div className="grid md:grid-cols-2">
+              <div className="p-10 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                  What's Included:
+                </h3>
+                <ul className="space-y-4">
+                  {[
+                    "Structured 1-to-1 sessions in bundles of 6, 8 or 10",
+                    "Personalized trance recordings for daily practice",
+                    "Simple, effective exercises to rewire your brain",
+                    "Ongoing support between sessions",
+                    "Science-backed techniques for lasting change",
+                    "Weekly progress tracking and adjustments"
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="flex-shrink-0 h-6 w-6 bg-indigo-600 rounded-full flex items-center justify-center mt-1">
+                        <FaCheck className="h-3 w-3 text-white" />
+                      </span>
+                      <span className="ml-3 text-gray-700">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-8">
+                  <Link 
+                    href="/programs/one-to-one" 
+                    className="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
+                  >
+                    Learn more about the program
+                    <FaArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+              <div className="bg-indigo-600 text-white p-10 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold mb-6">
+                  Ready to Experience Deep, Meaningful Positive Change?
+                </h3>
+                <p className="mb-6">
+                  The 1-to-1 Positive Change Program is a package of structured sessions which you can 
+                  buy in bundles of 6, 8 or 10. Once you purchase your package, you can book these sessions at 
+                  your convenience.
+                </p>
+                <div>
+                  <Link 
+                    href="https://positivechangehypnotherapy.co.uk/booking" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-indigo-600 transition-all duration-300 transform hover:scale-105"
+                  >
+                    Yes! Let Me Pick My Package!
+                    <FaArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </>
