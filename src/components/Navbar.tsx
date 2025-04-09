@@ -109,12 +109,12 @@ const Navbar = () => {
               />
               <div className="ml-3 flex flex-col">
                 <span className={`text-lg font-semibold tracking-tight transition-colors duration-300 ${
-                  isScrolled ? 'text-indigo-700' : 'text-white'
+                  isScrolled ? 'text-indigo-700' : pathname === '/' ? 'text-white' : 'text-gray-800'
                 }`}>
                   Positive Change
                 </span>
                 <span className={`text-xs font-medium transition-colors duration-300 ${
-                  isScrolled ? 'text-indigo-500' : 'text-indigo-100'
+                  isScrolled ? 'text-indigo-500' : pathname === '/' ? 'text-indigo-100' : 'text-gray-600'
                 }`}>
                   Solution Focused Hypnotherapy
                 </span>
@@ -133,10 +133,10 @@ const Navbar = () => {
                     pathname === item.href
                       ? isScrolled
                         ? 'text-indigo-700 bg-indigo-50'
-                        : 'text-white bg-white/10 backdrop-blur-sm'
+                        : pathname === '/' ? 'text-white bg-white/10 backdrop-blur-sm' : 'text-gray-800 bg-white/10 backdrop-blur-sm'
                       : isScrolled
                         ? 'text-gray-700 hover:text-indigo-700'
-                        : 'text-white hover:bg-white/10'
+                        : pathname === '/' ? 'text-white hover:bg-white/10' : 'text-gray-800 hover:bg-white/10'
                   }`}
                 >
                   {item.name}
@@ -150,10 +150,10 @@ const Navbar = () => {
                           pathname?.startsWith(item.href)
                             ? isScrolled
                               ? 'text-indigo-700 bg-indigo-50'
-                              : 'text-white bg-white/10 backdrop-blur-sm'
+                              : pathname === '/' ? 'text-white bg-white/10 backdrop-blur-sm' : 'text-gray-800 bg-white/10 backdrop-blur-sm'
                             : isScrolled
                               ? 'text-gray-700 hover:text-indigo-700'
-                              : 'text-white hover:bg-white/10'
+                              : pathname === '/' ? 'text-white hover:bg-white/10' : 'text-gray-800 hover:bg-white/10'
                         }`}
                       >
                         <span>{item.name}</span>
@@ -161,7 +161,7 @@ const Navbar = () => {
                           className={`ml-1 h-4 w-4 transform transition-transform duration-200 ${
                             open ? 'rotate-180' : ''
                           } ${
-                            isScrolled ? 'text-indigo-700' : 'text-white'
+                            isScrolled ? 'text-indigo-700' : pathname === '/' ? 'text-white' : 'text-gray-800'
                           }`}
                           aria-hidden="true"
                         />
@@ -214,7 +214,7 @@ const Navbar = () => {
               className={`p-2 rounded-md transition-colors duration-300 ${
                 isScrolled
                   ? 'text-gray-900 hover:text-indigo-600'
-                  : 'text-white hover:text-indigo-200'
+                  : pathname === '/' ? 'text-white hover:text-indigo-200' : 'text-gray-800 hover:text-indigo-600'
               }`}
               aria-expanded={isMobileMenuOpen}
             >
